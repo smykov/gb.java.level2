@@ -1,16 +1,33 @@
 package ru.gb.smykov.level2.HW1;
 
 public class Cat implements Participant {
-    @Override
-    public boolean run() {
-        System.out.println(this + " ran");
-        return true;
+    private double runLimit;
+    private final double jumpLimit;
+
+    public Cat(double runLimit, double jumpLimit) {
+        this.runLimit = runLimit;
+        this.jumpLimit = jumpLimit;
     }
 
     @Override
-    public boolean jump() {
-        System.out.println(this + " jumped");
-        return true;
+    public boolean run(double length) {
+        if (runLimit >= length){
+            System.out.println(this + " ran.");
+            runLimit -= length;
+            return true;
+        }
+        System.out.println(this + " could not run.");
+        return false;
+    }
+
+    @Override
+    public boolean jump(double height) {
+        if (jumpLimit >= height){
+            System.out.println(this + " jumped.");
+            return true;
+        }
+        System.out.println(this + " could not jump.");
+        return false;
     }
 
     @Override
