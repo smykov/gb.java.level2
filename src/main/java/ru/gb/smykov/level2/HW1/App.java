@@ -2,14 +2,30 @@ package ru.gb.smykov.level2.HW1;
 
 public class App {
     public static void main(String[] args) {
-        Barrier runningTrack = new RunningTrack();
-        Barrier wall = new Wall();
+        Barrier[] barriers = {
+                new RunningTrack(),
+                new Wall(),
+                new RunningTrack(),
+                new RunningTrack(),
+                new Wall(),
+                new RunningTrack(),
+        };
 
-        Participant cat = new Cat();
-        Participant human = new Human();
-        Participant robot = new Robot();
+        Participant[] participants = {
+                new Human(),
+                new Cat(),
+                new Robot(),
+                new Human(),
+                new Cat(),
+                new Robot(),
+        };
 
-        wall.go(cat).go(human).go(robot);
-        runningTrack.go(human).go(robot).go(cat);
+        for (Participant participant : participants) {
+            System.out.println(participant + " started to pass the barrier course.");
+            for (Barrier barrier : barriers) {
+                barrier.go(participant);
+            }
+            System.out.println("-----");
+        }
     }
 }
