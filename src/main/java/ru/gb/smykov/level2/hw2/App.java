@@ -6,11 +6,15 @@ public class App {
         String[][] strings = {
                 {"167", "34", "44", "45"},
                 {"167", "34f", "44", "54"},
-                {"167", "34", "42", "55",},
-                {"167", "34", "43", "56",},
+                {"167", "34", "42", "55"},
+                {"167", "34", "43", "56"},
         };
 
-        System.out.println(checkArray4x4(strings));
+        try {
+            System.out.println(checkArray4x4(strings));
+        } catch (MyArraySizeException | MyArrayDataException e) {
+            e.printStackTrace();
+        }
     }
 
     private static int checkArray4x4(String[][] strings) {
@@ -22,8 +26,7 @@ public class App {
         for (int i = 0; i < strings.length; i++) {
             for (int j = 0; j < strings[i].length; j++) {
                 try {
-                    int integer = Integer.parseInt(strings[i][j].trim());
-                    sum += integer;
+                    sum += Integer.parseInt(strings[i][j].trim());
                 } catch (NumberFormatException e) {
                     throw new MyArrayDataException(i, j);
                 }
