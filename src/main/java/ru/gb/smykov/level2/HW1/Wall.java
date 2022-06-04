@@ -14,6 +14,7 @@ public class Wall implements Barrier {
             return true;
         }
         System.out.println(participant + " was unable to jump over the wall!");
+        participant.setPlay(false);
         return false;
     }
 }

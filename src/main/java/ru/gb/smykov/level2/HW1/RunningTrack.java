@@ -14,6 +14,7 @@ public class RunningTrack implements Barrier {
             return true;
         }
         System.out.println(participant + " was unable to run on the running track!");
+        participant.setPlay(false);
         return false;
     }
 }

@@ -22,6 +22,7 @@ public class App {
 
         for (Participant participant : participants) {
             System.out.println(participant + " started to pass the barrier course.");
+            participant.setPlay(true);
             for (Barrier barrier : barriers) {
                 if (!barrier.go(participant)) {
                     System.out.println(participant + " went out of the way!");
@@ -29,6 +30,13 @@ public class App {
                 }
             }
             System.out.println("-----");
+        }
+
+        System.out.println("-----FINISH-----");
+        for (Participant player : participants) {
+            if (player.isPlay()) {
+                System.out.println(player + " win!!!");
+            }
         }
     }
 }
