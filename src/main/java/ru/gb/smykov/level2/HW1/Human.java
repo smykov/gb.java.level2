@@ -11,27 +11,6 @@ public class Human implements Participant {
     }
 
     @Override
-    public boolean run(double length) {
-        if (runLimit >= length) {
-            System.out.println(this + " ran.");
-            runLimit -= length;
-            return true;
-        }
-        System.out.println(this + " could not run.");
-        return false;
-    }
-
-    @Override
-    public boolean jump(double height) {
-        if (jumpLimit >= height) {
-            System.out.println(this + " jumped.");
-            return true;
-        }
-        System.out.println(this + " could not jump.");
-        return false;
-    }
-
-    @Override
     public String toString() {
         return "Human";
     }
@@ -42,5 +21,19 @@ public class Human implements Participant {
 
     public void setPlay(boolean play) {
         isPlay = play;
+    }
+
+    @Override
+    public double getRunLimit() {
+        return runLimit;
+    }
+
+    @Override
+    public void setRunLimit(double runLimit) {
+        this.runLimit = runLimit;
+    }
+
+    public double getJumpLimit() {
+        return jumpLimit;
     }
 }
