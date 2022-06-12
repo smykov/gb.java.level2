@@ -7,11 +7,15 @@ public class App {
     static final int HALF = SIZE / 2;
 
     public static void main(String[] args) {
+        new App().start();
+    }
+
+    private void start() {
         firstMethod();
         SecondMethod();
     }
 
-    private static void firstMethod() {
+    private void firstMethod() {
         float[] arr = initArray();
         long startTime = System.currentTimeMillis();
         fillArrayCalculatedData(arr);
@@ -19,7 +23,7 @@ public class App {
         System.out.println("First thread time: " + (endTime - startTime) + " ms.");
     }
 
-    private static void SecondMethod() {
+    private void SecondMethod() {
         float[] arr = initArray();
 
         float[] leftHalf = new float[HALF];
@@ -29,8 +33,18 @@ public class App {
 
         cutArray(arr, leftHalf, rightHalf);
 
-        fillArrayCalculatedData(leftHalf);
-        fillArrayCalculatedData(rightHalf);
+        Thread threadLeftHalf = new Thread(() -> fillArrayCalculatedData(leftHalf));
+        Thread threadRightHalf = new Thread(() -> fillArrayCalculatedData(rightHalf));
+
+        threadLeftHalf.start();
+        threadRightHalf.start();
+
+        try {
+            threadRightHalf.join();
+            threadLeftHalf.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         mergeArray(arr, leftHalf, rightHalf);
 
