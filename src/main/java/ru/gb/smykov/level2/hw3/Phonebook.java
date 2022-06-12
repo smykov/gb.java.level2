@@ -11,17 +11,17 @@ public class Phonebook {
     }
 
     public void add(String name, String phone) {
-        if (!book.containsKey(name)) {
-            HashSet<String> phoneSet = new HashSet<>();
-            phoneSet.add(phone);
-            book.put(name, phoneSet);
-        } else {
-            book.get(name).add(phone);
-        }
+        HashSet<String> phoneList = book.getOrDefault(name, new HashSet<>());
+        phoneList.add(phone);
+        book.put(name, phoneList);
     }
 
     public HashSet<String> get(String name) {
+        return book.getOrDefault(name, new HashSet<>());
+    }
 
-        return book.get(name);
+    @Override
+    public String toString() {
+        return book.toString();
     }
 }
