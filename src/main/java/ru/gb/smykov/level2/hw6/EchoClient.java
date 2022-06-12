@@ -16,8 +16,13 @@ public class EchoClient {
     }
 
     private void start() {
-        try {
-            openConnection();
+        openConnection();
+        startReadingThread();
+        startWritingThread();
+    }
+
+    private void startWritingThread() {
+        Thread threadWriting = new Thread(() -> {
             Scanner scanner = new Scanner(System.in);
             while (true) {
                 String message = scanner.nextLine();
@@ -26,9 +31,9 @@ public class EchoClient {
                     break;
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        });
+        threadWriting.setDaemon(true);
+        threadWriting.start();
     }
 
     private void sendMessage(String message) {
@@ -39,10 +44,17 @@ public class EchoClient {
         }
     }
 
-    private void openConnection() throws IOException {
-        socket = new Socket("127.0.0.1", 8189);
-        in = new DataInputStream(socket.getInputStream());
-        out = new DataOutputStream(socket.getOutputStream());
+    private void openConnection() {
+        try {
+            socket = new Socket("127.0.0.1", 8189);
+            in = new DataInputStream(socket.getInputStream());
+            out = new DataOutputStream(socket.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void startReadingThread() {
         new Thread(() -> {
             try {
                 while (true) {
@@ -58,7 +70,6 @@ public class EchoClient {
                 closeConnection();
             }
         }).start();
-
     }
 
     private void closeConnection() {
