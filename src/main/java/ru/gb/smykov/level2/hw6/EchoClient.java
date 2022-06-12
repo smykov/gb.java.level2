@@ -19,8 +19,12 @@ public class EchoClient {
         try {
             openConnection();
             Scanner scanner = new Scanner(System.in);
-            while (true) {//TODO: как закрыть клиента
-                sendMessage(scanner.nextLine());
+            while (true) {
+                String message = scanner.nextLine();
+                sendMessage(message);
+                if ("/end".equalsIgnoreCase(message)) {
+                    break;
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
