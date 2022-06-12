@@ -35,12 +35,11 @@ public class Task1 {
 
         HashMap<String, Integer> stringMap = new HashMap<>();
         for (String string : stringList) {
-            stringMap.put(string, stringMap.getOrDefault(string, 0) + 1);
+            int count = stringMap.getOrDefault(string, 0) + 1;
+            stringMap.put(string, count);
         }
 
-        for (Map.Entry<String, Integer> entry : stringMap.entrySet()) {
-            System.out.printf("Слово \"%s\" встречается %d %s\n", entry.getKey(), entry.getValue(), (Arrays.stream(new int[]{2, 3, 4}).anyMatch(entry.getValue()::equals) ? "раза" : "раз"));
-        }
+        stringMap.forEach((k, v) -> System.out.printf("Слово \"%s\" встречается %d %s\n", k, v, (Arrays.stream(new int[]{2, 3, 4}).anyMatch(v::equals) ? "раза" : "раз")));
 
     }
 }
