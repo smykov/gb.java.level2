@@ -1,7 +1,6 @@
 package ru.gb.smykov.level2.hw3;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Task1 {
     public static void main(String[] args) {
@@ -36,31 +35,12 @@ public class Task1 {
 
         HashMap<String, Integer> stringMap = new HashMap<>();
         for (String string : stringList) {
-            int count = stringMap.getOrDefault(string, 0) + 1;
-            stringMap.put(string, count);
+            stringMap.put(string, stringMap.getOrDefault(string, 0) + 1);
         }
 
-        stringMap.forEach((k, v) -> System.out.printf("Слово \"%s\" встречается %d %s\n", k, v, countingString(v, "раз", "раза", "раз")));
-
-        stringList.stream()
-                .filter(a -> a.length() > 1)
-                .collect(Collectors.groupingBy(a -> a.length(), Collectors.counting()))
-                .forEach((k, v) -> System.out.printf("Слово из %d %s встречается %d %s\n ", k, countingString(k, "раз", "раза", "раз"), v, countingString(v.intValue(), "буквы", "букв", "букв")));
-
-    }
-
-    private static String countingString(int number, String oneTimes, String coupleTimes, String someTimes) {
-        String times = "";
-        switch (number) {
-            case 1:
-                return oneTimes;
-            case 2:
-            case 3:
-            case 4:
-                return coupleTimes;
-            default:
-                return someTimes;
-
+        for (Map.Entry<String, Integer> entry : stringMap.entrySet()) {
+            System.out.printf("Слово \"%s\" встречается %d %s\n", entry.getKey(), entry.getValue(), (Arrays.stream(new int[]{2, 3, 4}).anyMatch(entry.getValue()::equals) ? "раза" : "раз"));
         }
+
     }
 }
